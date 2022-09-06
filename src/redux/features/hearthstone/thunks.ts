@@ -1,8 +1,9 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {cardAPI} from '../../../api';
+import {$Urls} from '../../../constants';
+import {request} from '../../../utils/request';
 
 export const getAllCards = createAsyncThunk('cards/all', async () => {
-  const response = await cardAPI.getAll();
+  const response = await request({url: $Urls.list, method: 'GET'});
   const cards = response.data;
   return cards;
 });

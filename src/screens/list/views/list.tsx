@@ -4,12 +4,23 @@ import {MechanicType} from '../../../types/mechanic';
 import {CardType} from '../../../types/card';
 import {useNavigation} from '@react-navigation/native';
 import {List} from '../../../components';
+import {
+  selectCards,
+  selectMechanics,
+  selectSearchText,
+} from '../../../redux/features/hearthstone/selects';
 
-export default function ResultList() {
-  const {mechanics, cards, searchText} = useAppSelector(state => state);
+type ResultListProps = {
+  testID: string;
+};
+
+export default function ResultList({testID}: ResultListProps) {
+  const mechanics = useAppSelector(selectMechanics);
+  const cards = useAppSelector(selectCards);
+  const searchText = useAppSelector(selectSearchText);
   const [resultData, setResultData] = useState<MechanicType[] | CardType[]>([]);
-  const navigation = useNavigation();
   const [isMechanicsShowing, setIsMechanicsShowing] = useState(true);
+  const navigation = useNavigation();
 
   useEffect(() => {
     if (searchText) return setCardsData();
@@ -39,5 +50,5 @@ export default function ResultList() {
     navigation.navigate('Detail' as never, item as never);
   };
 
-  return <List data={resultData} onItemPress={onItemPress} />;
+  return <List data={resultData} onItemPress={onItemPress} testID={testID} />;
 }

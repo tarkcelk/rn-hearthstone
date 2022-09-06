@@ -1,17 +1,18 @@
 import React, {useEffect, useLayoutEffect, useState} from 'react';
-import {Container, List} from '../../components';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
+import {Container, List} from '../../components';
 import {MechanicType} from '../../types/mechanic';
 import {CardType} from '../../types/card';
 import {getCardsByMechanic} from '../../redux/features/hearthstone/utils';
 import {useAppSelector} from '../../redux/hooks';
+import {selectCards} from '../../redux/features/hearthstone/selects';
 
 type DetailParams = {
   mechanic: MechanicType;
 };
 
 export default function Detail() {
-  const {cards} = useAppSelector(state => state);
+  const cards = useAppSelector(selectCards);
   const route = useRoute<RouteProp<DetailParams, 'mechanic'>>();
   const mechanic = route.params;
   const navigation = useNavigation();
@@ -26,8 +27,8 @@ export default function Detail() {
   }, [cards]);
 
   return (
-    <Container>
-      <List data={mechanicCards} />
+    <Container testID="containerComponent">
+      <List data={mechanicCards} testID="listComponent" />
     </Container>
   );
 }

@@ -1,53 +1,41 @@
-import {Button, Pressable, Text, TextInput, View} from 'react-native';
-import React, {useEffect, useState} from 'react';
-import style from '../style';
-import {useAppDispatch} from '../../../redux/hooks';
+import React from 'react';
+import {Pressable, Text, TextInput, View} from 'react-native';
+import {useAppDispatch, useAppSelector} from '../../../redux/hooks';
 import {setSearchText} from '../../../redux/features/hearthstone';
+import style from '../style';
+import {selectSearchText} from '../../../redux/features/hearthstone/selects';
 
-let timeout: NodeJS.Timeout;
+type SearchBarProps = {
+  testID: string;
+};
 
-export default function SearchBar() {
+export default function SearchBar({testID}: SearchBarProps) {
   const dispatch = useAppDispatch();
-  const [text, setText] = useState('');
-
-  useEffect(() => {
-    return () => {
-      if (timeout) clearInterval(timeout);
-    };
-  }, []);
+  const searchText = useAppSelector(selectSearchText);
 
   const onChangeText = (text: string) => {
-    setText(text);
-    debounce(500).then(() => {
-      dispatch(setSearchText(text));
-    });
+    dispatch(setSearchText(text));
   };
 
   const onSearchClean = () => {
-    setText('');
     dispatch(setSearchText(''));
   };
 
-  const debounce = (ms: number) => {
-    if (timeout) clearTimeout(timeout);
-    return new Promise(resolve => {
-      timeout = setTimeout(() => {
-        resolve(0);
-      }, ms);
-    });
-  };
-
   return (
-    <View style={style.searchBarContainer}>
+    <View style={style.searchBarContainer} testID={testID}>
       <TextInput
         style={style.searchBar}
         placeholder={'Search for a card..'}
         placeholderTextColor="#fff"
         onChangeText={onChangeText}
-        value={text}
+        value={searchText}
+        testID="searchBarViewTextInput"
       />
-      {!!text && (
-        <Pressable style={style.searchBarButton} onPress={onSearchClean}>
+      {!!searchText && (
+        <Pressable
+          style={style.searchBarButton}
+          onPress={onSearchClean}
+          testID="searchBarViewCleanButton">
           <Text style={style.searchBarButtonText}>⨉</Text>
         </Pressable>
       )}

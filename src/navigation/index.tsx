@@ -1,16 +1,17 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import AppStack from './stack';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {Detail, List} from '../screens';
 
-type NavigationProps = {
-  children?: JSX.Element | JSX.Element[];
-};
+const Stack = createNativeStackNavigator();
 
-export default function Navigation({children}: NavigationProps) {
+export default function Navigation() {
   return (
     <NavigationContainer>
-      <AppStack />
-      {children}
+      <Stack.Navigator>
+        <Stack.Screen name="List" component={List} />
+        <Stack.Screen name="Detail" component={Detail} options={{headerBackTitleVisible: false}} />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }

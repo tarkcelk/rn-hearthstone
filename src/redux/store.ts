@@ -1,17 +1,23 @@
-import {configureStore} from '@reduxjs/toolkit';
+import {combineReducers, configureStore, PreloadedState} from '@reduxjs/toolkit';
 import logger from 'redux-logger';
 import {reducer} from './features/hearthstone';
 
-export const store = configureStore({
-  reducer,
-  middleware: getDefaultMiddleware =>
-    getDefaultMiddleware({
-      immutableCheck: false,
-      serializableCheck: false,
-    }).concat(logger),
+const rootReducer = combineReducers({
+  hearthstone: reducer,
 });
 
-// Infer the `RootState` and `AppDispatch` types from the store itself
-export type RootState = ReturnType<typeof store.getState>;
-// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
-export type AppDispatch = typeof store.dispatch;
+export function setupStore(preloadedState?: PreloadedState<RootState>) {
+  return configureStore({
+    reducer: rootReducer,
+    preloadedState,
+    middleware: getDefaultMiddleware =>
+      getDefaultMiddleware({
+        immutableCheck: false,
+        serializableCheck: false,
+      }).concat(logger),
+  });
+}
+
+export type RootState = ReturnType<typeof rootReducer>;
+export type AppStore = ReturnType<typeof setupStore>;
+export type AppDispatch = AppStore['dispatch'];

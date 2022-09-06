@@ -1,3 +1,3 @@
-export type ListItemType = {
+export interface ListItemType {
   name: string;
-};
+}

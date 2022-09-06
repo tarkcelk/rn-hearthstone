@@ -4,6 +4,11 @@ import style from './style';
 
 export default function LoadingSpinner() {
   return (
-    <ActivityIndicator size={'large'} style={style.container} color="#000" />
+    <ActivityIndicator
+      size={'large'}
+      style={style.container}
+      color="#000"
+      testID="loadingSpinnerComponent"
+    />
   );
 }

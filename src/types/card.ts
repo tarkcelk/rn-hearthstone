@@ -7,6 +7,6 @@ export interface CardType extends ListItemType {
   mechanics: MechanicType[];
 }
 
-export type CardResponseType = {
+export interface CardResponseType {
   [key: string]: CardType[];
-};
+}
