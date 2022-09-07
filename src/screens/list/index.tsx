@@ -1,10 +1,10 @@
 import React, {useEffect} from 'react';
-import {Container, LoadingSpinner} from '../../components';
-import {getAllCards} from '../../redux/features/hearthstone/thunks';
+import {Container, LoadingSpinner} from 'components';
+import {getAllCards} from 'redux/features/hearthstone/thunks';
+import {selectLoading} from 'redux/features/hearthstone/selects';
+import {useAppSelector, useAppDispatch} from 'redux/hooks';
 import {List as ResultList, SearchBar} from './views';
-import {useAppSelector, useAppDispatch} from '../../redux/hooks';
 import style from './style';
-import {selectLoading} from '../../redux/features/hearthstone/selects';
 
 export default function List() {
   const dispatch = useAppDispatch();

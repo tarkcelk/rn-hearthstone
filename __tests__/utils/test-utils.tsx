@@ -1,12 +1,8 @@
 import React, {PropsWithChildren} from 'react';
 import {render} from '@testing-library/react-native';
-import {configureStore} from '@reduxjs/toolkit';
 import type {PreloadedState} from '@reduxjs/toolkit';
 import {Provider} from 'react-redux';
-
-import {AppStore, RootState, setupStore} from '../../src/redux/store';
-// As a basic setup, import your same slice reducers
-import {reducer} from '../../src/redux/features/hearthstone';
+import {AppStore, RootState, setupStore} from 'redux/store';
 
 // This type interface extends the default options for render from RTL, as well
 // as allows the user to specify other things such as initialState, store.

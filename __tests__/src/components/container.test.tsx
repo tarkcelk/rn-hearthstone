@@ -2,7 +2,7 @@ import React from 'react';
 import {Text} from 'react-native';
 import '@testing-library/jest-native';
 import {render} from '@testing-library/react-native';
-import {Container} from '../../../src/components';
+import {Container} from 'components';
 
 describe('container component test', () => {
   it('renders component correctly', () => {

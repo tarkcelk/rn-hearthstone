@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
-  mechanicButtton: {
+  button: {
     backgroundColor: '#fff',
     padding: 15,
     margin: 15,
@@ -11,7 +11,7 @@ export default StyleSheet.create({
     borderColor: 'darkgray',
     borderRadius: 15,
   },
-  mechanicButtonText: {
+  text: {
     fontSize: 22,
   },
 });

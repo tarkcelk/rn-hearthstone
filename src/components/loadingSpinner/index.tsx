@@ -14,7 +14,7 @@ export default function LoadingSpinner({
   return (
     <ActivityIndicator
       size={'large'}
-      style={style.container}
+      style={[style.container, !isLoading && {position: 'relative'}]}
       color="#000"
       testID={testID}
       animating={isLoading}

@@ -1,24 +1,44 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Pressable, Text, TextInput, View} from 'react-native';
-import {useAppDispatch, useAppSelector} from '../../../redux/hooks';
-import {setSearchText} from '../../../redux/features/hearthstone';
+import {useAppDispatch} from 'redux/hooks';
+import {setSearchText} from 'redux/features/hearthstone';
 import style from '../style';
-import {selectSearchText} from '../../../redux/features/hearthstone/selects';
 
 type SearchBarProps = {
   testID: string;
 };
 
+let timeout: NodeJS.Timeout;
+
 export default function SearchBar({testID}: SearchBarProps) {
   const dispatch = useAppDispatch();
-  const searchText = useAppSelector(selectSearchText);
+  const [text, setText] = useState('');
+
+  useEffect(() => {
+    return () => {
+      timeout && clearInterval(timeout);
+    };
+  }, []);
 
   const onChangeText = (text: string) => {
-    dispatch(setSearchText(text));
+    setText(text);
+    debounced(500).then(() => {
+      dispatch(setSearchText(text));
+    });
   };
 
   const onSearchClean = () => {
+    setText('');
     dispatch(setSearchText(''));
+  };
+
+  const debounced = (ms: number) => {
+    if (timeout) clearInterval(timeout);
+    return new Promise(resolve => {
+      timeout = setTimeout(() => {
+        resolve(1);
+      }, ms);
+    });
   };
 
   return (
@@ -28,10 +48,10 @@ export default function SearchBar({testID}: SearchBarProps) {
         placeholder={'Search for a card..'}
         placeholderTextColor="#fff"
         onChangeText={onChangeText}
-        value={searchText}
+        value={text}
         testID="searchBarViewTextInput"
       />
-      {!!searchText && (
+      {!!text && (
         <Pressable
           style={style.searchBarButton}
           onPress={onSearchClean}

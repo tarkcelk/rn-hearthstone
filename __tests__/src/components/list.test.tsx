@@ -1,14 +1,16 @@
 import React from 'react';
 import '@testing-library/jest-native';
 import {render} from '@testing-library/react-native';
-import {List, ListButton} from '../../../src/components';
+import {List, ListButton} from 'components';
+import {ListItemType} from 'types/component';
 import {cardMockData, mechanicMockData} from '../../mocks/list.mocks';
-import {ListItemType} from '../../../src/types/component';
 
 describe('list component test', () => {
   const testID = 'listComponent';
   it('renders mechanics correctly', () => {
-    const {getByTestId} = render(<List data={mechanicMockData} testID={'listComponent'} />);
+    const {getByTestId} = render(
+      <List data={mechanicMockData} testID={'listComponent'} />,
+    );
     expect(getByTestId(testID)).toBeTruthy();
   });
 
@@ -20,7 +22,9 @@ describe('list component test', () => {
       props.data.forEach((propData: any) => {
         const itemElement = props?.renderItem({item: propData});
 
-        const cardIdExists = cardMockData.some(cmd => cmd.cardId === itemElement.props.data.cardId);
+        const cardIdExists = cardMockData.some(
+          cmd => cmd.cardId === itemElement.props.data.cardId,
+        );
         const mechanicDataExists = mechanicMockData.some(
           mmd => mmd.name === itemElement.props.data.name,
         );

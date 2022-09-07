@@ -1,11 +1,11 @@
-import {fireEvent} from '@testing-library/react-native';
+import {fireEvent, waitFor} from '@testing-library/react-native';
 import {rest} from 'msw';
 import {setupServer} from 'msw/node';
-import {ListButton} from '../../../../src/components';
-import {$Urls} from '../../../../src/constants';
-import {setLoading} from '../../../../src/redux/features/hearthstone';
-import {List} from '../../../../src/screens';
-import {MechanicType} from '../../../../src/types/mechanic';
+import {ListButton} from 'components';
+import {$Urls} from 'consts';
+import {setLoading} from 'redux/features/hearthstone';
+import {List} from 'screens';
+import {MechanicType} from 'types/mechanic';
 import {cardResponseData, mechanicMockData} from '../../../mocks/list.mocks';
 import {renderWithProviders} from '../../../utils/test-utils';
 
@@ -30,34 +30,37 @@ afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
 describe('list screen tests', () => {
-  it('should render screen views correctly', () => {
+  it('should render screen views correctly', async () => {
     const {getByTestId} = renderWithProviders(<List />);
-    getByTestId('containerComponent');
-    getByTestId('searchBarView');
-    getByTestId('resultListView');
-    getByTestId('loadingSpinnerView');
+    await waitFor(() => {
+      getByTestId('containerComponent');
+      getByTestId('searchBarView');
+      getByTestId('resultListView');
+      getByTestId('loadingSpinnerView');
+    });
   });
 
-  it('should render loading icon correctly', () => {
+  it('should render loading icon correctly', async () => {
     const {getByTestId, store, rerender} = renderWithProviders(<List />);
+
     expect(getByTestId('loadingSpinnerView').props.animating).toBeTruthy();
-    store.dispatch(setLoading(false));
+    await waitFor(() => store.dispatch(setLoading(false)));
     rerender(<List />);
     expect(getByTestId('loadingSpinnerView').props.animating).toBeFalsy();
   });
 
   it('should render hearthstone api data correctly', async () => {
     const {getByTestId} = renderWithProviders(<List />);
-    const props = getByTestId('resultListView').props;
+    const props = await waitFor(() => getByTestId('resultListView').props);
 
     props.data.forEach((propData: {data: MechanicType}) => {
       const itemElement = props.renderItem({item: propData});
       fireEvent.press(itemElement);
       expect(itemElement.type).toEqual(ListButton);
-      const mechanicExists = mechanicMockData.some(
+      const mechanicDataExists = mechanicMockData.some(
         mmd => mmd.name === itemElement.props.data.name,
       );
-      expect(mechanicExists).toBeTruthy();
+      expect(mechanicDataExists).toBeTruthy();
     });
   });
 });

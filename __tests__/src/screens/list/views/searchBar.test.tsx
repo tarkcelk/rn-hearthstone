@@ -1,12 +1,12 @@
 import React from 'react';
 import '@testing-library/jest-native';
-import {SearchBar} from '../../../../../src/screens/list/views';
+import {fireEvent, waitFor} from '@testing-library/react-native';
+import {SearchBar} from 'screens/list/views';
 import {renderWithProviders} from '../../../../utils/test-utils';
-import {fireEvent} from '@testing-library/react-native';
 
 describe('search bar view test', () => {
   const testID = 'searchBarView';
-  const text = 'Void Walker';
+  const text = 'Voidwalker';
 
   it('renders search bar', () => {
     const {getByTestId} = renderWithProviders(<SearchBar testID={testID} />);
@@ -27,7 +27,9 @@ describe('search bar view test', () => {
   });
 
   it('should display clean button after text changes', () => {
-    const {queryByTestId, getByTestId} = renderWithProviders(<SearchBar testID={testID} />);
+    const {queryByTestId, getByTestId} = renderWithProviders(
+      <SearchBar testID={testID} />,
+    );
     const cleanButton = queryByTestId('searchBarViewCleanButton');
     const textInput = getByTestId('searchBarViewTextInput');
     fireEvent.changeText(textInput, text);
@@ -41,5 +43,22 @@ describe('search bar view test', () => {
     const cleanButton = getByTestId('searchBarViewCleanButton');
     fireEvent.press(cleanButton);
     expect(textInput.props.value).toBe('');
+  });
+
+  it('should set redux state after text changes and some milliseconds', async () => {
+    const {getByTestId, store} = renderWithProviders(
+      <SearchBar testID={testID} />,
+    );
+    const textInput = getByTestId('searchBarViewTextInput');
+    fireEvent.changeText(textInput, text);
+    await waitFor(
+      () => {
+        const {
+          hearthstone: {searchText},
+        } = store.getState();
+        expect(searchText).toBe(text);
+      },
+      {timeout: 550},
+    );
   });
 });

@@ -1,5 +1,5 @@
-import axios, {AxiosRequestConfig, AxiosResponse, AxiosError} from 'axios';
-import {$Request, $Urls} from '../constants';
+import axios, {AxiosRequestConfig} from 'axios';
+import {$Request, $Urls} from 'consts';
 
 export const request = (config: AxiosRequestConfig) => {
   axios.defaults.baseURL = $Urls.base;

@@ -1,30 +1,32 @@
 import React from 'react';
 import '@testing-library/jest-native';
-import {List} from '../../../../../src/screens/list/views';
+import {cleanup, fireEvent, waitFor} from '@testing-library/react-native';
+import {setSearchText} from 'redux/features/hearthstone';
+import {List} from 'screens/list/views';
+import {ListButton} from 'components';
+import {CardType} from 'types/card';
 import {renderWithProviders} from '../../../../utils/test-utils';
 import {
   cardMockData,
   mechanicMockData,
   preloadedState,
 } from '../../../../mocks/list.mocks';
-import {ListButton} from '../../../../../src/components';
-import {setSearchText} from '../../../../../src/redux/features/hearthstone';
-import {fireEvent} from '@testing-library/react-native';
-import {CardType} from '../../../../../src/types/card';
+
+afterEach(cleanup);
 
 describe('list view test', () => {
   const testID = 'listView';
 
-  it('renders list view', () => {
+  it('renders list view', async () => {
     const {getByTestId} = renderWithProviders(<List testID={testID} />);
-    getByTestId(testID);
+    await waitFor(() => getByTestId(testID));
   });
 
-  it('should render list view with mechanic data', () => {
+  it('should render list view with mechanic data', async () => {
     const {getByTestId} = renderWithProviders(<List testID={testID} />, {
       preloadedState,
     });
-    const props = getByTestId(testID).props;
+    const props = await waitFor(() => getByTestId(testID).props);
 
     props.data.forEach((propData: {data: CardType}) => {
       const itemElement = props.renderItem({item: propData});
@@ -37,14 +39,14 @@ describe('list view test', () => {
     });
   });
 
-  it('should render list view with card data', () => {
+  it('should render list view with card data', async () => {
     const {getByTestId, store, rerender} = renderWithProviders(
       <List testID={testID} />,
       {
         preloadedState,
       },
     );
-    store.dispatch(setSearchText('Card'));
+    await waitFor(() => store.dispatch(setSearchText('Card')));
     rerender(<List testID={testID} />);
     const props = getByTestId(testID).props;
 

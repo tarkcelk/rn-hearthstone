@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction, SerializedError} from '@reduxjs/toolkit';
-import {CardType} from '../../../types/card';
-import {MechanicType} from '../../../types/mechanic';
+import {CardType} from 'types/card';
+import {MechanicType} from 'types/mechanic';
 import {getAllCards} from './thunks';
 import {getCardsFromResponse, getMechanicsFromCards} from './utils';
 
@@ -42,9 +42,9 @@ export const slice = createSlice({
         state.cards = getCardsFromResponse(cardResponse);
         state.mechanics = getMechanicsFromCards(cardResponse);
       })
-      .addCase(getAllCards.rejected, (state, actions) => {
+      .addCase(getAllCards.rejected, (state, action) => {
         state.loading = false;
-        state.error = actions.error;
+        state.error = action.error;
       });
   },
 });

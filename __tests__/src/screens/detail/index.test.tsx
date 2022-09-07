@@ -1,6 +1,6 @@
-import {ListButton} from '../../../../src/components';
-import {Detail} from '../../../../src/screens';
-import {CardType} from '../../../../src/types/card';
+import {ListButton} from 'components';
+import {Detail} from 'screens';
+import {CardType} from 'types/card';
 import {cardMockData, preloadedState} from '../../../mocks/list.mocks';
 import {renderWithProviders} from '../../../utils/test-utils';
 
@@ -20,7 +20,9 @@ describe('detail screen tests', () => {
     props.data.forEach((propData: {data: CardType}) => {
       const itemElement = props.renderItem({item: propData});
       expect(itemElement.type).toEqual(ListButton);
-      const cardIdExists = cardMockData.some(cmd => cmd.cardId === itemElement.props.data.cardId);
+      const cardIdExists = cardMockData.some(
+        cmd => cmd.cardId === itemElement.props.data.cardId,
+      );
       expect(cardIdExists).toBeTruthy();
     });
   });

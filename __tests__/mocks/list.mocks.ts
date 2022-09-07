@@ -1,5 +1,5 @@
-import {CardResponseType, CardType} from '../../src/types/card';
-import {MechanicType} from '../../src/types/mechanic';
+import {CardResponseType, CardType} from 'types/card';
+import {MechanicType} from 'types/mechanic';
 
 const mechanicMockData: MechanicType[] = [
   {
@@ -23,21 +23,47 @@ const cardMockData: CardType[] = [
     mechanics: mechanicMockData,
     name: 'Card 2',
   },
+  {
+    cardId: '3',
+    cardSet: 'card set 3',
+    mechanics: mechanicMockData,
+    name: 'Card 3',
+  },
 ];
 
 const cardResponseData: CardResponseType = {
-  [cardMockData[0].name]: cardMockData,
-  [cardMockData[1].name]: cardMockData,
+  [cardMockData[0].cardId]: cardMockData,
+  [cardMockData[1].cardId]: cardMockData,
+  [cardMockData[2].cardId]: cardMockData,
+};
+
+const mechaniclessCardResponseData: CardResponseType = {
+  [cardMockData[0].name]: cardMockData.filter(
+    cmd => cmd.mechanics.length === 0,
+  ),
+};
+
+const initialState = {
+  cards: [],
+  error: {},
+  loading: false,
+  mechanics: [],
+  searchText: '',
 };
 
 const preloadedState = {
   hearthstone: {
+    ...initialState,
     cards: cardMockData,
     mechanics: mechanicMockData,
-    error: {},
-    loading: false,
-    searchText: '',
   },
 };
 
-export {mechanicMockData, cardMockData, preloadedState, cardResponseData};
+export {
+  mechanicMockData,
+  cardMockData,
+  initialState,
+  preloadedState,
+  cardResponseData,
+  mechaniclessCardResponseData,
+};
