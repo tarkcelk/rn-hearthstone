@@ -18,7 +18,7 @@ export default function List() {
     <Container style={style.container} testID="containerComponent">
       <SearchBar testID="searchBarView" />
       <ResultList testID="resultListView" />
-      {loading ? <LoadingSpinner /> : <></>}
+      <LoadingSpinner testID="loadingSpinnerView" isLoading={loading} />
     </Container>
   );
 }

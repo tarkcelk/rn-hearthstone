@@ -2,13 +2,22 @@ import React from 'react';
 import {ActivityIndicator} from 'react-native';
 import style from './style';
 
-export default function LoadingSpinner() {
+type LoadingSpinnerProps = {
+  isLoading: boolean;
+  testID?: string;
+};
+
+export default function LoadingSpinner({
+  isLoading,
+  testID = 'loadingSpinnerComponent',
+}: LoadingSpinnerProps) {
   return (
     <ActivityIndicator
       size={'large'}
       style={style.container}
       color="#000"
-      testID="loadingSpinnerComponent"
+      testID={testID}
+      animating={isLoading}
     />
   );
 }

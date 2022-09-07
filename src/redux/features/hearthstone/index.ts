@@ -27,6 +27,9 @@ export const slice = createSlice({
     setSearchText: (state, action: PayloadAction<string>) => {
       state.searchText = action.payload;
     },
+    setLoading: (state, action: PayloadAction<boolean>) => {
+      state.loading = action.payload;
+    },
   },
   extraReducers: builder => {
     builder
@@ -46,6 +49,6 @@ export const slice = createSlice({
   },
 });
 
-export const {setSearchText} = slice.actions;
+export const {setSearchText, setLoading} = slice.actions;
 
 export const reducer = slice.reducer;

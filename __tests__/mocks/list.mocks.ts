@@ -1,4 +1,4 @@
-import {CardType} from '../../src/types/card';
+import {CardResponseType, CardType} from '../../src/types/card';
 import {MechanicType} from '../../src/types/mechanic';
 
 const mechanicMockData: MechanicType[] = [
@@ -25,6 +25,11 @@ const cardMockData: CardType[] = [
   },
 ];
 
+const cardResponseData: CardResponseType = {
+  [cardMockData[0].name]: cardMockData,
+  [cardMockData[1].name]: cardMockData,
+};
+
 const preloadedState = {
   hearthstone: {
     cards: cardMockData,
@@ -35,4 +40,4 @@ const preloadedState = {
   },
 };
 
-export {mechanicMockData, cardMockData, preloadedState};
+export {mechanicMockData, cardMockData, preloadedState, cardResponseData};
