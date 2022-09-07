@@ -58,7 +58,7 @@ describe('search bar view test', () => {
         } = store.getState();
         expect(searchText).toBe(text);
       },
-      {timeout: 550},
+      {timeout: 1000},
     );
   });
 });
