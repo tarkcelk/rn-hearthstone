@@ -6,7 +6,7 @@ import {getCardsFromResponse, getMechanicsFromCards} from './utils';
 
 export interface HearthStoneState {
   cards: CardType[];
-  mechanics?: MechanicType[];
+  mechanics: MechanicType[];
   loading: boolean;
   error: SerializedError;
   searchText: string;

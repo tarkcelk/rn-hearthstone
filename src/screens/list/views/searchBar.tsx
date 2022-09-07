@@ -22,7 +22,7 @@ export default function SearchBar({testID}: SearchBarProps) {
 
   const onChangeText = (text: string) => {
     setText(text);
-    debounced(500).then(() => {
+    debounce(500).then(() => {
       dispatch(setSearchText(text));
     });
   };
@@ -32,7 +32,7 @@ export default function SearchBar({testID}: SearchBarProps) {
     dispatch(setSearchText(''));
   };
 
-  const debounced = (ms: number) => {
+  const debounce = (ms: number) => {
     if (timeout) clearInterval(timeout);
     return new Promise(resolve => {
       timeout = setTimeout(() => {

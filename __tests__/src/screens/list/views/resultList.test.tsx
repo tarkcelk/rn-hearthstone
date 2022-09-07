@@ -17,7 +17,7 @@ afterEach(cleanup);
 describe('list view test', () => {
   const testID = 'listView';
 
-  it('renders list view', async () => {
+  it('should render list view', async () => {
     const {getByTestId} = renderWithProviders(<List testID={testID} />);
     await waitFor(() => getByTestId(testID));
   });
@@ -59,5 +59,24 @@ describe('list view test', () => {
       );
       expect(cardIdExists).toBeTruthy();
     });
+  });
+
+  it('should not render anything when search text doesnt match', async () => {
+    const {getByTestId, store, rerender} = renderWithProviders(
+      <List testID={testID} />,
+      {
+        preloadedState,
+      },
+    );
+    await waitFor(() => store.dispatch(setSearchText('Not a card name')));
+    rerender(<List testID={testID} />);
+    let props = getByTestId(testID).props;
+    expect(props.data.length).toBe(0);
+  });
+
+  it('should not render mechanic data', async () => {
+    const {getByTestId} = renderWithProviders(<List testID={testID} />);
+    let props = getByTestId(testID).props;
+    expect(props.data.length).toBe(0);
   });
 });

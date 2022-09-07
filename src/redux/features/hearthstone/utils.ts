@@ -42,3 +42,7 @@ export const getCardsByMechanic = (
       !!card.mechanics && card.mechanics.some(cm => cm.name === mechanic.name),
   );
 };
+
+export const getCardsBySearch = (cards: CardType[], searchText: string) => {
+  return cards.filter(card => card.name.includes(searchText));
+};

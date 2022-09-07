@@ -1,5 +1,6 @@
 import {
   getCardsByMechanic,
+  getCardsBySearch,
   getCardsFromResponse,
   getMechanicsFromCards,
 } from 'redux/features/hearthstone/utils';
@@ -30,6 +31,11 @@ describe('redux slice utils tests', () => {
 
   it('should return mechanic cards', () => {
     const mechanicCards = getCardsByMechanic(cardMockData, mechanicMockData[0]);
+    expect(mechanicCards.length).toBeGreaterThanOrEqual(1);
+  });
+
+  it('should return cards by search', () => {
+    const mechanicCards = getCardsBySearch(cardMockData, cardMockData[0].name);
     expect(mechanicCards.length).toBeGreaterThanOrEqual(1);
   });
 });
