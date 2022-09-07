@@ -1,5 +1,5 @@
 import React from 'react';
-import {FlatList} from 'react-native';
+import {FlatList, ListRenderItemInfo} from 'react-native';
 import {ListItemType} from 'types/component';
 import ListButton from '../listButton';
 
@@ -10,17 +10,13 @@ export type ListProps = {
 };
 
 export default function List({data, onItemPress, testID}: ListProps) {
-  return (
-    <FlatList
-      data={data}
-      renderItem={({item, index}) => (
-        <ListButton
-          key={`mb-${item.name}-${index}`}
-          data={item}
-          onPress={onItemPress}
-        />
-      )}
-      testID={testID}
+  const renderItem = ({item, index}: ListRenderItemInfo<ListItemType>) => (
+    <ListButton
+      key={`mb-${item.name}-${index}`}
+      data={item}
+      onPress={onItemPress}
     />
   );
+
+  return <FlatList data={data} renderItem={renderItem} testID={testID} />;
 }
