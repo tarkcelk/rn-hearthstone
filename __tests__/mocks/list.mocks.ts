@@ -16,6 +16,7 @@ const cardMockData: CardType[] = [
     cardSet: 'card set 1',
     mechanics: [],
     name: 'Card 1',
+    img: 'https://d15f34w2p8l1cc.cloudfront.net/hearthstone/b87618ad2ce602514d5ccd7be8b8a613167bed6209450d1601a46b65c1f0af05.png',
   },
   {
     cardId: '2',

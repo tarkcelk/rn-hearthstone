@@ -1,4 +1,7 @@
-import {StyleSheet} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
+
+const width = Dimensions.get('window').width / 2,
+  height = 200;
 
 export default StyleSheet.create({
   button: {
@@ -12,6 +15,17 @@ export default StyleSheet.create({
     borderRadius: 15,
   },
   text: {
+    flex: 2,
     fontSize: 22,
+  },
+  imageContainer: {
+    flex: 1,
+    width,
+    height,
+  },
+  image: {
+    width,
+    height,
+    resizeMode: 'stretch',
   },
 });

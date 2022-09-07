@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import {useAppSelector} from 'redux/hooks';
-import {MechanicType} from 'types/mechanic';
-import {CardType} from 'types/card';
 import {useNavigation} from '@react-navigation/native';
-import {List} from 'components';
+import {useAppSelector} from 'redux/hooks';
 import {
   selectCards,
   selectMechanics,
   selectSearchText,
 } from 'redux/features/hearthstone/selects';
+import {List} from 'components';
+import {MechanicType} from 'types/mechanic';
+import {CardType} from 'types/card';
 
 type ResultListProps = {
   testID: string;
@@ -34,9 +34,7 @@ export default function ResultList({testID}: ResultListProps) {
   };
 
   const setCardsData = () => {
-    const searchedCards = cards.filter(card =>
-      card.name.startsWith(searchText),
-    );
+    const searchedCards = cards.filter(card => card.name.includes(searchText));
     navigation.setOptions({title: 'Cards'});
     setResultData(searchedCards);
     setHeader('Cards');

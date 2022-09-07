@@ -24,7 +24,9 @@ export const getCardsFromResponse = (data: CardResponseType) => {
   cardDecks.forEach(cardDeck => {
     cardDeck.forEach(card => {
       const isAdded = cards.some(pushedCard => pushedCard.name === card.name);
-      if (!isAdded) return cards.push(card);
+      if (!isAdded) {
+        return cards.push(card);
+      }
     });
   });
 
