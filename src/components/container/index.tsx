@@ -1,5 +1,5 @@
 import React from 'react';
-import {SafeAreaView} from 'react-native';
+import {SafeAreaView, StatusBar} from 'react-native';
 
 type ContainerProps = {
   children?: JSX.Element | JSX.Element[];
@@ -10,6 +10,7 @@ type ContainerProps = {
 export default function Container({children, style, testID}: ContainerProps) {
   return (
     <SafeAreaView style={style} testID={testID}>
+      <StatusBar barStyle={'dark-content'} backgroundColor={'#fff'} />
       {children}
     </SafeAreaView>
   );

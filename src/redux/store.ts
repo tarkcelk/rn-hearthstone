@@ -1,4 +1,8 @@
-import {combineReducers, configureStore, PreloadedState} from '@reduxjs/toolkit';
+import {
+  combineReducers,
+  configureStore,
+  PreloadedState,
+} from '@reduxjs/toolkit';
 import logger from 'redux-logger';
 import {reducer} from './features/hearthstone';
 
@@ -12,7 +16,6 @@ export function setupStore(preloadedState?: PreloadedState<RootState>) {
     preloadedState,
     middleware: getDefaultMiddleware =>
       getDefaultMiddleware({
-        immutableCheck: false,
         serializableCheck: false,
       }).concat(logger),
   });

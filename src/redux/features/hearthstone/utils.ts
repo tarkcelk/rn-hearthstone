@@ -18,16 +18,11 @@ export const getMechanicsFromCards = (data: CardResponseType) => {
 };
 
 export const getCardsFromResponse = (data: CardResponseType) => {
-  const cards: CardType[] = [];
+  let cards: CardType[] = [];
 
   const cardDecks = Object.keys(data).map(cardDeck => data[cardDeck]);
   cardDecks.forEach(cardDeck => {
-    cardDeck.forEach(card => {
-      const isAdded = cards.some(pushedCard => pushedCard.name === card.name);
-      if (!isAdded) {
-        return cards.push(card);
-      }
-    });
+    cards = cards.concat(cardDeck);
   });
 
   return cards;

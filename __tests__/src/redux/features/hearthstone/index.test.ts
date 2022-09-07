@@ -1,6 +1,10 @@
 import {reducer, setLoading, setSearchText} from 'redux/features/hearthstone';
 import {getAllCards} from 'redux/features/hearthstone/thunks';
 import {
+  getCardsFromResponse,
+  getMechanicsFromCards,
+} from 'redux/features/hearthstone/utils';
+import {
   cardMockData,
   cardResponseData,
   initialState,
@@ -58,8 +62,8 @@ describe('redux slice tests', () => {
 
     expect(reducer(undefined, action)).toEqual({
       ...initialState,
-      cards: cardMockData,
-      mechanics: mechanicMockData,
+      cards: getCardsFromResponse(cardResponseData),
+      mechanics: getMechanicsFromCards(cardResponseData),
     });
   });
 });
